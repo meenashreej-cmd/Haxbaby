@@ -2,13 +2,13 @@ import type { CharacterSheetData, ProjectItem, StoryScene } from '../types';
 
 /**
  * Section 04: 5-Point Character Sheet Data
- * Canonical lore for Nebupip: The Cosmic Dream-Sprout
+ * Canonical lore for Pluto: The Cosmic Sprout Baby & Apprentice Dream-Weaver
  */
 export const characterSheet: CharacterSheetData = {
-  name: "Nebupip ('Pip')",
+  name: "Pluto",
   whatTheyAre: "Cosmic Sprout Baby",
   whatTheyDo: "Apprentice Dream-Weaver",
-  story: "Born from a sneezed star on a velvet crescent moon, Nebupip drifts through the sleepy astral winds, gathering loose static and turning tangled nightmares into pillowy, sweet daydreams.",
+  story: "Born from a sneezed star",
   tagline: "Even the smallest star lights up the biggest dream!"
 };
 
@@ -21,24 +21,24 @@ export const storyScenes: StoryScene[] = [
     id: 1,
     title: "Scene 1: The Cosmic Sneeze",
     subtitle: "Where starlight found a heartbeat",
-    text: "High above the sleepy lavender ionosphere, a great supernova took a deep cosmic breath and sneezed. From that sparkling celestial sneeze tumbled a tiny, luminous speck with sleepy eyes and two soft leaf-tendrils: Nebupip. Floating on an asteroid pillow, the little sprout wondered what a universe as vast as this could possibly need from someone so small."
+    text: "Deep in the quiet universe, where galaxies whisper in shades of lavender and midnight blue, a tiny slumbering star sneezed. A sparkling burst of golden stardust billowed across the celestial nursery, coalescing into Pluto—a round-cheeked baby crowned with a soft green sprout. Wrapped in pastel pajamas speckled with miniature constellations, Pluto opened enormous, glossy eyes to a sea of shimmering wonder. Every drifting comet and glowing nebula seemed to hum an invitation. With a curious wiggle and a joyful gurgle, the little apprentice reached out chubby hands, discovering that starlight felt warm and gentle, like a newborn smile."
   },
   {
     id: 2,
     title: "Scene 2: Gathering Stardust",
-    subtitle: "Weaving static into lullabies",
-    text: "Nebupip discovered that between sleeping galaxies drifted static — sharp crackles of forgotten worries and restless earthbound thoughts. Armed with a pocketful of moonbeams, Nebupip learned to catch these jagged sparks between chubby fingers. With gentle purrs and spinning starlight needles, the static softened, unwinding into glistening spools of pastel dream-yarn."
+    subtitle: "Weaving kindness into glowing dreams",
+    text: "As Pluto floated through the milky nebulae, the little dream-weaver noticed something wondrous: rogue stardust was alive with feelings. Whenever Pluto shared a soft giggle or whispered words of gentle encouragement, scattered sparks of mint and lavender drifted closer, dancing in rhythm with Pluto's heart. Pluto gathered the glowing particles into fluffy cloud-baskets, spinning the radiant dust into shimmering spools of dream-yarn. For the weary stars that flickered in the cold dark, and the lonely clouds drifting between moonbeams, Pluto knit glowing tapestries of comfort and warmth, turning restless celestial static into sweet lullabies."
   },
   {
     id: 3,
     title: "Scene 3: The Cradle of Dreams",
-    subtitle: "A pillow of midnight peace",
-    text: "On a quiet Tuesday, a child down on Earth tossed and turned beneath stormy shadows. Floating down on a silver ray, Nebupip tucked a fresh lavender cloud-blanket around their sleepy forehead. The room filled with the scent of stardust and chamomile. The child smiled in their sleep, and Nebupip's heart blossomed with a golden glow: their sacred craft had truly begun."
+    subtitle: "Comfort and wonder for an enormous universe",
+    text: "With tender care, Pluto gathered woven starlight, crescent moonbeams, and pillowy cloud-fluff to build a magical celestial cradle. Resting at the crossroads of quiet galaxies, the cradle caught wayward fears and spun them into peaceful daydreams that drifted softly down toward sleeping worlds. Looking out across the vast expanse, where sleepy stars began to glow with gentle warmth, Pluto cuddled a radiant little star and smiled. Though the cosmos was endlessly deep and mysterious, the little sprout understood a sacred truth: even the smallest being can bring comfort, wonder, and boundless love to an enormous universe."
   }
 ];
 
 /**
- * Section 05: What They Made - Interactive Projects Showcase
+ * Section 05: What They Made - Interactive Projects Showcase (Day 2 consume)
  */
 export const projects: ProjectItem[] = [
   {

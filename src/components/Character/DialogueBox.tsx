@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import type { CharacterMood } from '../../types';
 import { useAudio } from '../../hooks/useAudio';
 import { Sparkles } from 'lucide-react';
@@ -74,7 +74,6 @@ const dialogueBank: DialogueItem[] = [
 
 export const DialogueBox: React.FC<DialogueBoxProps> = ({ mood, className = '' }) => {
   const [selectedTopic, setSelectedTopic] = useState<string>('stars');
-  const [currentText, setCurrentText] = useState<string>(dialogueBank[0].text);
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const { playSfx } = useAudio();
 
@@ -86,20 +85,18 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ mood, className = '' }
     return item.text;
   };
 
+  const currentItem = dialogueBank.find((d) => d.id === selectedTopic) || dialogueBank[0];
+  const activeText = getDialogueText(currentItem, mood);
+
   const handleSelectTopic = (item: DialogueItem) => {
-    setSelectedTopic(item.id);
+    if (item.id === selectedTopic) return;
     playSfx(item.sfx);
     setIsTyping(true);
+    setSelectedTopic(item.id);
     setTimeout(() => {
-      setCurrentText(getDialogueText(item, mood));
       setIsTyping(false);
     }, 150);
   };
-
-  useEffect(() => {
-    const item = dialogueBank.find((d) => d.id === selectedTopic) || dialogueBank[0];
-    setCurrentText(getDialogueText(item, mood));
-  }, [mood, selectedTopic]);
 
   return (
     <div className={`relative max-w-md mx-auto z-20 ${className}`}>
@@ -110,7 +107,7 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ mood, className = '' }
         <div className="flex items-center justify-between border-b border-purple-500/20 pb-2 mb-3 text-xs font-mono">
           <div className="flex items-center gap-1.5 text-purple-200">
             <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin-slow" />
-            <span className="font-bold tracking-wider uppercase">Nebupip Whispers</span>
+            <span className="font-bold tracking-wider uppercase">Pluto Whispers</span>
           </div>
           <span className="px-2 py-0.5 rounded-full bg-purple-950/80 border border-purple-400/30 text-[10px] text-purple-300 uppercase">
             {mood === 'day' ? '☀️ Daytime Chirp' : mood === 'night' ? '🌙 Nighttime Hush' : '✨ Dreaming Deep'}
@@ -124,14 +121,14 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ mood, className = '' }
               isTyping ? 'opacity-20 scale-95' : 'opacity-100 scale-100'
             }`}
           >
-            "{currentText}"
+            "{activeText}"
           </p>
         </div>
 
         {/* Interactive Topic Pill Buttons */}
         <div className="mt-4 pt-3 border-t border-purple-500/20">
           <p className="text-[10px] font-mono text-purple-300/60 uppercase tracking-widest text-center mb-2">
-            Click a topic to talk with Nebupip:
+            Click a topic to talk with Pluto:
           </p>
           <div className="flex flex-wrap items-center justify-center gap-1.5">
             {dialogueBank.map((item) => {
@@ -154,7 +151,7 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ mood, className = '' }
           </div>
         </div>
 
-        {/* Speech Bubble Tail pointing down to Nebupip */}
+        {/* Speech Bubble Tail pointing down to Pluto */}
         <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[12px] border-t-purple-400/50" />
         <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[10px] border-t-indigo-950" />
       </div>

@@ -16,7 +16,7 @@ export const ProjectsShowcase: React.FC = () => {
           Section 05 • What They Made
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Nebupip's Star-Craft Inventions
+          Pluto's Star-Craft Inventions
         </h2>
         <p className="text-sm text-slate-300 max-w-lg mx-auto mt-2">
           Interactive micro-toys hand-crafted by the apprentice dream-weaver to catch static and cultivate peace.
@@ -70,6 +70,8 @@ interface CloudParticle {
   alpha: number;
 }
 
+const PASTEL_COLORS = ['#F5B8C8', '#CDB8E8', '#B9D0F4', '#FFE49A', '#B8D9C0'];
+
 const CloudWeaverDemo: React.FC<{ project: (typeof projects)[0] }> = ({ project }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const particlesRef = useRef<CloudParticle[]>([]);
@@ -77,10 +79,8 @@ const CloudWeaverDemo: React.FC<{ project: (typeof projects)[0] }> = ({ project 
   const [particleCount, setParticleCount] = useState(0);
   const { playSfx } = useAudio();
 
-  const pastelColors = ['#fbcfe8', '#c084fc', '#bae6fd', '#fed7aa', '#fef08a'];
-
   const addParticle = useCallback((x: number, y: number) => {
-    const color = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+    const color = PASTEL_COLORS[Math.floor(Math.random() * PASTEL_COLORS.length)];
     particlesRef.current.push({
       x,
       y,
@@ -384,8 +384,33 @@ const SlumberBoxDemo: React.FC<{ project: (typeof projects)[0] }> = ({ project }
     { id: 5, note: 'A5', name: 'Serenity', freq: 880.0, color: 'from-emerald-400 to-teal-500' },
   ];
 
+  const playTone = (freq: number) => {
+    try {
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+      gain.gain.setValueAtTime(0.18, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.0);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 1.0);
+    } catch {
+      // Ignore audio context initialization failures
+    }
+  };
+
   const handleKeyTap = (key: (typeof chimeKeys)[0]) => {
     setActiveKey(key.id);
+    playTone(key.freq);
     playSfx('chime');
     setTimeout(() => setActiveKey(null), 300);
   };

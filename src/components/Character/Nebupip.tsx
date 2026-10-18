@@ -2,7 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import type { CharacterProps, EyeOffset } from '../../types';
 import { useAudio } from '../../hooks/useAudio';
 import { Sparkles, Heart } from 'lucide-react';
+import plutoImg from '../../assets/pluto.png';
 
+/**
+ * Pluto: Cosmic Sprout Baby Interactive Rig
+ * Replaces old Nebupip model with official Pluto artwork
+ */
 export const Nebupip: React.FC<CharacterProps> = ({
   mood,
   isMuted = false,
@@ -14,10 +19,10 @@ export const Nebupip: React.FC<CharacterProps> = ({
   const [isBlushing, setIsBlushing] = useState(false);
   const [isWiggling, setIsWiggling] = useState(false);
   const [pokeCount, setPokeCount] = useState(0);
-  const [eyeOffset, setEyeOffset] = useState<EyeOffset>({ x: 0, y: 0 });
+  const [, setEyeOffset] = useState<EyeOffset>({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // Eye tracking cursor/touch
+  // Eye / cursor tracking
   useEffect(() => {
     const handlePointerMove = (e: MouseEvent | TouchEvent) => {
       if (!containerRef.current) return;
@@ -70,22 +75,16 @@ export const Nebupip: React.FC<CharacterProps> = ({
   // Color schemes based on mood
   const moodTheme = {
     day: {
-      sproutBody: 'from-amber-200 via-purple-300 to-indigo-400',
-      auraGlow: 'rgba(253, 224, 71, 0.4)',
-      leafColor: '#4ade80',
-      antennaBulb: '#fef08a',
+      auraGlow: 'radial-gradient(circle, rgba(253, 224, 71, 0.45) 0%, rgba(244, 184, 200, 0.25) 50%, transparent 70%)',
+      ringColor: '#FFE49A',
     },
     night: {
-      sproutBody: 'from-indigo-300 via-purple-400 to-slate-800',
-      auraGlow: 'rgba(168, 85, 247, 0.4)',
-      leafColor: '#86efac',
-      antennaBulb: '#c084fc',
+      auraGlow: 'radial-gradient(circle, rgba(205, 184, 232, 0.5) 0%, rgba(185, 208, 244, 0.3) 50%, transparent 70%)',
+      ringColor: '#CDB8E8',
     },
     dreaming: {
-      sproutBody: 'from-pink-300 via-purple-300 to-cyan-300',
-      auraGlow: 'rgba(244, 114, 182, 0.5)',
-      leafColor: '#6ee7b7',
-      antennaBulb: '#f472b6',
+      auraGlow: 'radial-gradient(circle, rgba(245, 184, 200, 0.55) 0%, rgba(184, 217, 192, 0.35) 50%, transparent 70%)',
+      ringColor: '#B8D9C0',
     },
   }[mood];
 
@@ -94,176 +93,74 @@ export const Nebupip: React.FC<CharacterProps> = ({
       ref={containerRef}
       onClick={handleCharacterClick}
       className={`relative inline-flex flex-col items-center cursor-pointer select-none group transition-transform ${className}`}
-      title="Click Nebupip to poke tummy and hear a giggle!"
+      title="Click Pluto to poke tummy and hear a giggle!"
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleCharacterClick();
+        }
+      }}
+      aria-label="Pluto: The Cosmic Sprout Baby. Click to poke and interact."
     >
       {/* Ambient Starlight Dream Aura */}
       <div
-        className="absolute inset-0 rounded-full blur-2xl transition-all duration-700 pointer-events-none"
+        className="absolute inset-0 rounded-full blur-3xl transition-all duration-700 pointer-events-none scale-125"
         style={{ background: moodTheme.auraGlow }}
       />
 
       {/* Floating Hearts / Sparkles on Poke */}
       {isWiggling && (
-        <div className="absolute -top-6 flex gap-2 animate-bounce pointer-events-none">
-          <Heart className="w-5 h-5 text-rose-400 fill-rose-400" />
-          <Sparkles className="w-4 h-4 text-amber-300" />
+        <div className="absolute -top-8 flex gap-2 animate-bounce pointer-events-none z-30">
+          <Heart className="w-6 h-6 text-[#F5B8C8] fill-[#F5B8C8] drop-shadow-md" />
+          <Sparkles className="w-5 h-5 text-[#FFE49A] fill-[#FFE49A] drop-shadow-md" />
         </div>
       )}
 
-      {/* SVG Living Rig */}
-      <svg
-        viewBox="0 0 200 220"
-        className={`w-52 h-56 sm:w-64 sm:h-72 transition-transform duration-300 ${
-          isWiggling ? 'animate-wiggle scale-105' : 'group-hover:scale-105'
-        }`}
-      >
-        <defs>
-          <radialGradient id="nebupipHeadGrad" cx="50%" cy="45%" r="55%">
-            <stop offset="0%" stopColor="#faf5ff" />
-            <stop offset="65%" stopColor="#d8b4fe" />
-            <stop offset="100%" stopColor="#9333ea" />
-          </radialGradient>
-          <linearGradient id="cloudSwaddle" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#e0e7ff" />
-            <stop offset="50%" stopColor="#c7d2fe" />
-            <stop offset="100%" stopColor="#a5b4fc" />
-          </linearGradient>
-          <filter id="softSproutGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="4" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-        </defs>
-
+      {/* Pluto Character Frame & Rig */}
+      <div className="relative w-64 h-64 sm:w-72 sm:h-72 flex flex-col items-center justify-center">
         {/* Orbiting Starlight Halo */}
-        <circle
-          cx="100"
-          cy="110"
-          r="82"
-          fill="none"
-          stroke="#fde047"
-          strokeWidth="1.5"
-          strokeDasharray="4,6"
-          opacity="0.7"
-          className="animate-spin-slow origin-center"
+        <div
+          className="absolute inset-0 rounded-full border-2 border-dashed opacity-40 animate-spin-slow pointer-events-none"
+          style={{ borderColor: moodTheme.ringColor }}
         />
 
-        {/* Tiny Orbiting Star */}
-        <circle cx="100" cy="28" r="4" fill="#fef08a" className="animate-pulse" />
+        {/* Floating Twinkling Stars */}
+        <div className="absolute top-1 left-3 text-[#FFE49A] text-sm animate-pulse pointer-events-none">✦</div>
+        <div className="absolute bottom-5 right-3 text-[#F5B8C8] text-sm animate-pulse delay-500 pointer-events-none">✦</div>
+        <div className="absolute top-4 right-2 text-[#B9D0F4] text-base animate-pulse delay-700 pointer-events-none">★</div>
 
-        {/* Antenna 1: Left Sprout */}
-        <path
-          d="M 100 68 Q 78 30 62 38"
-          stroke={moodTheme.leafColor}
-          strokeWidth="4"
-          fill="none"
-          strokeLinecap="round"
-        />
-        <circle cx="62" cy="38" r="7" fill={moodTheme.antennaBulb} className="animate-pulse" />
-
-        {/* Antenna 2: Right Star Tendril */}
-        <path
-          d="M 100 68 Q 122 26 138 34"
-          stroke={moodTheme.leafColor}
-          strokeWidth="4"
-          fill="none"
-          strokeLinecap="round"
-        />
-        <circle cx="138" cy="34" r="7" fill="#fde047" className="animate-pulse" />
-
-        {/* Sprout Head Body */}
-        <ellipse
-          cx="100"
-          cy="112"
-          rx="58"
-          ry="52"
-          fill="url(#nebupipHeadGrad)"
-          filter="url(#softSproutGlow)"
-        />
-
-        {/* Forehead Dream Star Marking */}
-        <path
-          d="M 100 82 L 102 88 L 108 90 L 102 92 L 100 98 L 98 92 L 92 90 L 98 88 Z"
-          fill="#fef08a"
-          opacity="0.8"
-        />
-
-        {/* Big Cosmic Eyes with Pupil Tracking */}
-        <g id="left-eye">
-          <ellipse cx="80" cy="108" rx="9" ry="13" fill="#1e1b4b" />
-          {/* Tracking Pupil */}
-          <circle
-            cx={80 + eyeOffset.x}
-            cy={108 + eyeOffset.y}
-            r="4.5"
-            fill="#a855f7"
+        {/* Soft Celestial Portrait Frame */}
+        <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-3xl overflow-hidden border-2 border-[#CDB8E8]/40 bg-gradient-to-b from-[#202747]/80 via-[#1E2442]/90 to-[#14182E] shadow-2xl p-2.5 flex items-center justify-center">
+          <img
+            src={plutoImg}
+            alt="Pluto: Cosmic Sprout Baby"
+            className={`w-full h-full object-contain relative z-10 transition-transform duration-300 drop-shadow-[0_10px_22px_rgba(255,228,154,0.35)] ${
+              isWiggling ? 'animate-wiggle scale-108' : 'group-hover:scale-105'
+            } motion-reduce:transition-none motion-reduce:animate-none`}
+            draggable={false}
           />
-          {/* Star Eye Glints */}
-          <circle cx="77" cy="104" r="3.2" fill="#ffffff" />
-          <circle cx="83" cy="113" r="1.8" fill="#ffffff" />
-        </g>
 
-        <g id="right-eye">
-          <ellipse cx="120" cy="108" rx="9" ry="13" fill="#1e1b4b" />
-          {/* Tracking Pupil */}
-          <circle
-            cx={120 + eyeOffset.x}
-            cy={108 + eyeOffset.y}
-            r="4.5"
-            fill="#a855f7"
-          />
-          {/* Star Eye Glints */}
-          <circle cx="117" cy="104" r="3.2" fill="#ffffff" />
-          <circle cx="123" cy="113" r="1.8" fill="#ffffff" />
-        </g>
+          {/* Gentle cloud pillow base */}
+          <div className="absolute bottom-0 inset-x-0 h-8 bg-gradient-to-t from-[#14182E] via-[#14182E]/70 to-transparent pointer-events-none z-15" />
+        </div>
 
-        {/* Cheeks - Blush intensifies on click / hover */}
-        <ellipse
-          cx="68"
-          cy="124"
-          rx={isBlushing ? 10 : 8}
-          ry={isBlushing ? 6 : 5}
-          fill="#f472b6"
-          opacity={isBlushing ? 0.95 : 0.65}
-          className="transition-all duration-300"
-        />
-        <ellipse
-          cx="132"
-          cy="124"
-          rx={isBlushing ? 10 : 8}
-          ry={isBlushing ? 6 : 5}
-          fill="#f472b6"
-          opacity={isBlushing ? 0.95 : 0.65}
-          className="transition-all duration-300"
-        />
-
-        {/* Baby Smile / Mouth */}
-        {mood === 'dreaming' ? (
-          // Sleeping little 'o'
-          <circle cx="100" cy="128" r="4" fill="#581c87" />
-        ) : (
-          <path
-            d="M 92 126 Q 100 134 108 126"
-            stroke="#4c1d95"
-            strokeWidth="3.5"
-            fill="none"
-            strokeLinecap="round"
-          />
+        {/* Rosy Blush overlay when poked */}
+        {isBlushing && (
+          <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-20">
+            <span className="text-3xl animate-ping opacity-90">💖</span>
+          </div>
         )}
+      </div>
 
-        {/* Pillowy Cloud Swaddle Blankie */}
-        <path
-          d="M 64 148 C 72 185 128 185 136 148 C 146 156 154 172 144 186 C 130 204 70 204 56 186 C 46 172 54 156 64 148 Z"
-          fill="url(#cloudSwaddle)"
-        />
-
-        {/* Tiny Sprout Feet / Rootlets */}
-        <circle cx="86" cy="194" r="5" fill="#86efac" />
-        <circle cx="114" cy="194" r="5" fill="#86efac" />
-      </svg>
-
-      <span className="text-[11px] font-mono text-purple-300/80 bg-slate-900/60 px-2.5 py-0.5 rounded-full border border-purple-500/20 backdrop-blur-xs mt-1">
-        ✨ Click to poke Nebupip • Mood: {mood}
+      {/* Interactive Status Pill */}
+      <span className="text-[11px] font-mono text-[#FFF4E7]/90 bg-[#202747]/80 px-3.5 py-1 rounded-full border border-[#CDB8E8]/30 backdrop-blur-xs mt-2 shadow-sm transition-colors group-hover:border-[#FFE49A]">
+        ✨ Click to poke Pluto • Mood: <span className="text-[#FFE49A] capitalize">{mood}</span>
       </span>
     </div>
   );
 };
+
+// Also export Pluto alias for clean future imports
+export const Pluto = Nebupip;

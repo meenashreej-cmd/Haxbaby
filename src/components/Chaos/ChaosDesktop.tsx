@@ -56,7 +56,7 @@ export const ChaosDesktop: React.FC<ChaosDesktopProps> = ({
   const [windows, setWindows] = useState<Record<string, WindowState>>({
     nebupip: {
       id: 'nebupip',
-      title: 'Nebupip_LiveCam.exe',
+      title: 'Pluto_LiveCam.exe',
       icon: '🌌',
       isOpen: true,
       isMinimized: false,
@@ -191,8 +191,12 @@ export const ChaosDesktop: React.FC<ChaosDesktopProps> = ({
       const desktopWidth = desktopRef.current?.clientWidth || 1000;
       const desktopHeight = desktopRef.current?.clientHeight || 700;
 
-      const newX = Math.max(0, Math.min(desktopWidth - win.width, startX + dx));
-      const newY = Math.max(0, Math.min(desktopHeight - 120, startY + dy));
+      // Prevent windows from being dragged offscreen or becoming permanently inaccessible
+      const maxX = Math.max(0, desktopWidth - 100);
+      const maxY = Math.max(0, desktopHeight - 50);
+
+      const newX = Math.max(0, Math.min(maxX, startX + dx));
+      const newY = Math.max(0, Math.min(maxY, startY + dy));
 
       setWindows((curr) => ({
         ...curr,
@@ -211,6 +215,65 @@ export const ChaosDesktop: React.FC<ChaosDesktopProps> = ({
     window.addEventListener('mouseup', handleEnd);
     window.addEventListener('touchmove', handleMove);
     window.addEventListener('touchend', handleEnd);
+  };
+
+  const resetWindows = () => {
+    playSfx('chime');
+    setWindows({
+      nebupip: {
+        id: 'nebupip',
+        title: 'Pluto_LiveCam.exe',
+        icon: '🌌',
+        isOpen: true,
+        isMinimized: false,
+        isMaximized: false,
+        x: 30,
+        y: 20,
+        width: 440,
+        height: 480,
+        zIndex: 10,
+      },
+      story: {
+        id: 'story',
+        title: 'DreamScroll_v1.0.txt',
+        icon: '📜',
+        isOpen: true,
+        isMinimized: false,
+        isMaximized: false,
+        x: 500,
+        y: 20,
+        width: 540,
+        height: 460,
+        zIndex: 9,
+      },
+      projects: {
+        id: 'projects',
+        title: 'Stardust_Creations.app',
+        icon: '🛠️',
+        isOpen: false,
+        isMinimized: false,
+        isMaximized: false,
+        x: 80,
+        y: 120,
+        width: 680,
+        height: 480,
+        zIndex: 11,
+      },
+      guestbook: {
+        id: 'guestbook',
+        title: 'Guestbook_Wall.htm',
+        icon: '📖',
+        isOpen: false,
+        isMinimized: false,
+        isMaximized: false,
+        x: 200,
+        y: 160,
+        width: 600,
+        height: 440,
+        zIndex: 12,
+      },
+    });
+    setTopZIndex(15);
   };
 
   if (!isChaosMode) {
@@ -248,7 +311,7 @@ export const ChaosDesktop: React.FC<ChaosDesktopProps> = ({
           >
             <div className="text-3xl mb-1 filter drop-shadow">🌌</div>
             <span className="text-[11px] font-mono text-purple-200 group-hover:text-white px-1 rounded bg-black/40">
-              Nebupip.exe
+              Pluto.exe
             </span>
           </button>
 
@@ -383,7 +446,7 @@ export const ChaosDesktop: React.FC<ChaosDesktopProps> = ({
                   <div>
                     {nebupipSection || (
                       <div className="p-4 text-center text-xs font-mono text-purple-300">
-                        Nebupip living viewport mounted.
+                        Pluto living viewport mounted.
                       </div>
                     )}
                   </div>
@@ -425,7 +488,7 @@ export const ChaosDesktop: React.FC<ChaosDesktopProps> = ({
           <div className="absolute bottom-2 left-2 w-64 bg-slate-900 border-2 border-purple-500/50 rounded-lg shadow-2xl p-2 z-50 animate-fade-in font-mono text-xs">
             <div className="p-2 border-b border-purple-500/30 flex items-center gap-2 text-purple-200 font-bold">
               <Sparkles className="w-4 h-4 text-amber-300" />
-              <span>Nebupip OS v1.0</span>
+              <span>Pluto OS v1.0</span>
             </div>
             <div className="py-2 flex flex-col gap-1">
               <button
@@ -437,7 +500,7 @@ export const ChaosDesktop: React.FC<ChaosDesktopProps> = ({
                 className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-purple-900/50 text-left text-slate-200"
               >
                 <span>🌌</span>
-                <span>Launch Nebupip Cam</span>
+                <span>Launch Pluto Cam</span>
               </button>
               <button
                 onClick={() => {
@@ -486,7 +549,17 @@ export const ChaosDesktop: React.FC<ChaosDesktopProps> = ({
                 </button>
               )}
             </div>
-            <div className="pt-2 border-t border-purple-500/30">
+            <div className="pt-2 border-t border-purple-500/30 space-y-1">
+              <button
+                onClick={() => {
+                  resetWindows();
+                  setStartMenuOpen(false);
+                }}
+                className="w-full flex items-center justify-between px-2 py-1.5 rounded hover:bg-purple-900/50 text-left text-slate-200"
+                title="Reset all windows to default positions"
+              >
+                <span>🔄 Reset Window Layout</span>
+              </button>
               <button
                 onClick={() => {
                   toggleChaosMode();
@@ -639,7 +712,7 @@ export const ChaosDesktop: React.FC<ChaosDesktopProps> = ({
           {activeMobileTab === 'character' && (
             <div className="space-y-4">
               <div className="flex justify-between items-center border-b border-purple-500/20 pb-2">
-                <span className="text-xs font-mono text-purple-300">CARD 01: NEBUPIP CAM</span>
+                <span className="text-xs font-mono text-purple-300">CARD 01: PLUTO CAM</span>
                 {onOpenPassport && (
                   <button
                     onClick={() => {

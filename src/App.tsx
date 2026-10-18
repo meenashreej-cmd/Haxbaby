@@ -69,12 +69,12 @@ function MainApp() {
             <span className="text-2xl animate-spin-slow">🌌</span>
             <div>
               <h1 className="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-1.5 leading-none">
-                Nebupip
+                Pluto
                 <span className="text-[10px] font-mono font-normal px-2 py-0.5 rounded-full bg-purple-900/60 border border-purple-400/30 text-purple-200">
                   Track 2
                 </span>
               </h1>
-              <span className="text-[11px] font-serif italic text-purple-300/80">The Cosmic Dream-Sprout</span>
+              <span className="text-[11px] font-serif italic text-purple-300/80">Cosmic Sprout Baby • Apprentice Dream-Weaver</span>
             </div>
           </div>
 
@@ -187,7 +187,7 @@ function MainApp() {
             <div className="text-4xl animate-bounce">🌟</div>
             <h3 className="text-xl font-bold text-pink-200">Cosmic Secret Unlocked!</h3>
             <p className="text-xs text-purple-200 font-sans leading-relaxed">
-              You poked Nebupip 5 times! A burst of warm starlight sprinkles has blessed your screen with eternal sweet daydreams.
+              You poked Pluto 5 times! A burst of warm starlight sprinkles has blessed your screen with eternal sweet daydreams.
             </p>
             <button
               onClick={() => {

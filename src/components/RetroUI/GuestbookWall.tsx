@@ -7,7 +7,7 @@ const initialWishes: GuestbookWish[] = [
   {
     id: 'wish-1',
     name: 'Astrid Star-Gazer',
-    wish: 'May every weary soul find a soft lavender cloud tonight. Thank you Nebupip! ✨',
+    wish: 'May every weary soul find a soft lavender cloud tonight. Thank you Pluto! ✨',
     color: 'from-purple-900/40 to-indigo-900/40 border-purple-400/40',
     createdAt: 'Just now',
   },
@@ -76,7 +76,7 @@ export const GuestbookWall: React.FC = () => {
         </div>
         <h3 className="text-2xl font-bold text-white tracking-tight">The Celestial Visitor Wall</h3>
         <p className="text-xs text-purple-200/70 max-w-md mx-auto mt-1">
-          Leave your dream wish. Nebupip catches every note and pins it to the velvet night sky.
+          Leave your dream wish. Pluto catches every note and pins it to the velvet night sky.
         </p>
       </div>
 

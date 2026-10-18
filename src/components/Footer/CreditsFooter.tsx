@@ -11,7 +11,7 @@ export const CreditsFooter: React.FC = () => {
         <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-1">
           <div className="flex items-center gap-2 text-purple-300 font-bold text-sm">
             <Sparkles className="w-4 h-4 text-amber-300" />
-            <span>Nebupip: The Cosmic Dream-Sprout</span>
+            <span>Pluto: Cosmic Sprout Baby</span>
           </div>
           <p className="text-[11px] text-slate-400 max-w-sm">
             haX.baby Hackathon • Track 2: Your Own Baby. 100% Original character entity weaving astral static into sweet dreams.
