@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { CharacterMood } from './types';
 import { AudioProvider, useAudio } from './hooks/useAudio';
+import { useVisitorMemory } from './hooks/useVisitorMemory';
 import { Nebupip } from './components/Character/Nebupip';
 import { DialogueBox } from './components/Character/DialogueBox';
 import { CharacterSheetModal } from './components/Story/CharacterSheetModal';
@@ -19,6 +20,7 @@ function MainApp() {
   const [isPassportOpen, setIsPassportOpen] = useState<boolean>(false);
   const [easterEggActive, setEasterEggActive] = useState<boolean>(false);
   const { playSfx } = useAudio();
+  const { greeting } = useVisitorMemory();
 
   const handleMoodCycle = () => {
     playSfx('chime');
@@ -146,9 +148,14 @@ function MainApp() {
           
           {/* Hero Character Section */}
           <section className="relative px-4 text-center max-w-4xl mx-auto w-full">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-900/30 border border-purple-400/30 text-purple-200 text-xs font-mono uppercase tracking-widest mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              Living Entity • Tier 1 & 2 Interactive Character Rig
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-900/30 border border-purple-400/30 text-purple-200 text-xs font-mono uppercase tracking-widest">
+                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                Living Entity • Tier 1 & 2 Interactive Character Rig
+              </div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/80 border border-amber-400/30 text-amber-300 text-xs font-mono shadow-sm">
+                <span>{greeting}</span>
+              </div>
             </div>
             
             {characterSection}

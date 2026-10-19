@@ -35,10 +35,10 @@ export const CreditsFooter: React.FC = () => {
         <div className="flex flex-col items-center md:items-end text-center md:text-right space-y-1">
           <div className="flex items-center gap-1.5 text-purple-200">
             <Code2 className="w-3.5 h-3.5 text-pink-400" />
-            <span>Crafted with love by <strong className="text-white">Meena</strong> & team</span>
+            <span>Built by <strong className="text-white">Dhaya, Meena & Akshitha</strong></span>
           </div>
           <p className="text-[10px] text-slate-400">
-            Lore • Section 04 Passport • Section 05 Chronicles & Showcase • +5 pts Chaos Mode
+            Tech Lead Rig & Audio (Dhaya) • Lore & Chaos Mode (Meena) • Nostalgia & DevOps (Akshitha)
           </p>
           <div className="flex items-center gap-1 text-[10px] text-amber-300/90 font-serif italic pt-1">
             <Heart className="w-3 h-3 text-rose-400 fill-rose-400" />
